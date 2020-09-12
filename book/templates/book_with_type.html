@@ -1,0 +1,10 @@
+{% extends 'book_list.html'%}
+
+{% block  title %}
+    {{ book_type.type_name }}
+{% endblock %}
+
+{% block book_list_title %}
+    <h4>图书分类：{{ book_type.type_name }}</h4>
+{% endblock book_list_title %}
+

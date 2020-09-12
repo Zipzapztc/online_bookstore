@@ -1,0 +1,97 @@
+{% extends 'base.html'%}
+{% load static %}
+
+{% block  title %}
+    {{ book.book_name }}
+{% endblock %}
+
+{% block header_extends %}
+    <link rel="stylesheet" href="{% static 'purchase.css' %}">
+{% endblock header_extends %}
+
+{% block nav_shopping_cart_active %}
+    active
+{% endblock nav_shopping_cart_active %}
+
+{% block content %}
+    <div class="container">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-xs-10 col-xs-offset-1">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-7">
+                                    <h5>商品信息</h5>
+                                </div>
+                                <div class="col-xs-1">
+                                    <h5>单价</h5>
+                                </div>
+                                <div class="col-xs-1">
+                                    <h5>数量</h5>
+                                </div>
+                                <div class="col-xs-1">
+                                    <h5>金额</h5>
+                                </div>
+                                <div class="col-xs-2">
+                                    <h5>操作</h5>
+                                </div>
+                            </div>
+                        </div>    
+                    
+                        <ul class="list-group">
+                            {% for book_in_cart in books_in_cart %}
+                                <li class="list-group-item">
+                                    <div class="row">
+                                        <div class="col-xs-7">
+                                            <div class="media">
+                                                <div class="media-left">
+                                                    <a href="{% url 'book_detail' book_in_cart.book.id %}">
+                                                        <img src="{{ book_in_cart.book.picture.url }}" alt="{{ book_in_cart.book.picture.name }}" height="80" width="80" >
+                                                    </a>
+                                                </div>
+                                                <div class="media-body">
+                                                    <a href="{% url 'book_detail' book_in_cart.book.id %}">
+                                                        <h4>{{ book_in_cart.book.book_name }}</h4>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-1">
+                                            <p>¥{{ book_in_cart.book.price }}</p>
+                                        </div>
+                                        <div class="col-xs-1">
+                                            <p>{{ book_in_cart.book_num }}</p>
+                                        </div>
+                                        <div class="col-xs-1">
+                                            <p><span style="color:#ff2832">¥{{ book_in_cart.one_book_money | floatformat:2 }}</span></p>
+                                        </div>
+                                        <div class="col-xs-2">
+                                            <div><a href="#">移入收藏夹</a></div>
+                                            <div><a href="{% url 'remove_from_shopping_cart' %}?book_id={{ book_in_cart.book.id }}">删除</a></div>
+                                        </div>
+                                    </div>
+                                </li>
+                            {% empty %}
+                                暂无图书
+                            {% endfor %} 
+                        </ul>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-xs-1 col-xs-offset-8">
+                            <h5>总计：</h5>
+                        </div>
+                        <div class="col-xs-1">
+                            <h5><span style="color:#ff2832">¥{{ total_money | floatformat:2 }}</span></h5>
+                        </div>
+                        <div class="col-xs-2">
+                            <a class="btn btn-danger btn-lg btn-block" href="{% url 'confirm_order' %}">结算</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+        
+{% endblock %}
