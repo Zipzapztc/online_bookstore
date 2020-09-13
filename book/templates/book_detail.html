@@ -33,13 +33,13 @@
                         <p>国际标准书号ISBN：{{ book.book_number }}</p>
                         {% if user.is_authenticated %}
                             <a class="btn btn-danger" href="{% url 'add_to_shopping_cart' %}?book_id={{ book.id }}">加入购物车</a>
-                            <a class="btn btn-primary" href="">立即购买</a>
+                            <a class="btn btn-primary" href="{% url 'confirm_order' %}">立即购买</a>
                             <a class="btn btn-default" href="">
                                 <span class="glyphicon glyphicon-star-empty"></span> 收藏
                             </a>
                         {% else %}
                             <a class="btn btn-danger" href="{% url 'login' %}?from={{ request.get_full_path }}">加入购物车</a>
-                            <a class="btn btn-primary" href="">立即购买</a>
+                            <a class="btn btn-primary" href="{% url 'login' %}?from={{ request.get_full_path }}">立即购买</a>
                             <a class="btn btn-default" href="">
                                 <span class="glyphicon glyphicon-star-empty"></span> 收藏
                             </a>
