@@ -6,6 +6,7 @@ static_collected/
 
 #file
 *.sql
+*.json
 media/download/*
 !media/download/readme.txt
 media/upload/*
